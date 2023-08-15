@@ -36,7 +36,7 @@ export default function ListaDevs() {
   function buscarPorSkill(event: any) {
     event.preventDefault()
 
-    const devsFiltrados = devs.filter((dev: any) => dev.skills.includes(skillDigitada.toLocaleUpperCase))
+    const devsFiltrados = devs.filter((dev: any) => dev.skills.includes(skillDigitada.toLocaleUpperCase()))
 
     if (devsFiltrados.length === 0) {
       alert("Nenhum desenvolvedor foi encontrado com essa skill")
