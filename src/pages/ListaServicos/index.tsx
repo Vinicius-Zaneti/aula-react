@@ -1,6 +1,7 @@
 import "./style.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CardServicos from "../../components/CardServicos"
+import api from "../../utils/api";
 // import Logo from "../../assets/img/logo.svg"
 // import imgfacebook from "../../assets/img/facebook.svg"
 // import imginstagram from "../../assets/img/instagram.svg"
@@ -30,34 +31,22 @@ export default function ListaServicos() {
   //   menu_barras.classList.toggle("ativo"); // Alterna a classe 'ativo' no botão do menu
   // }
 
-  const [produtos, setProdutos] = useState<any[]>([{
-    titulo: "Desenvolvimento de site institucional - Gateway de Pagamento/ Fintech",
-    preco: "R$ 1300,00",
-    texto: " Desenvolver um site responsivo que seja utilizado como uma plataforma de apresentação do nosso gateway de pagamento. O objetivo principal deste projeto é criar um site atraente e informativo, que demonstre as funcionalidades e benefícios do nosso gateway de pagamento para potenciais clientes.",
-    skills: ["HTML", "CSS", "REACT"]
-  },
-  {
-    titulo: "Bot telegram Pagamento",
-    preco: "R$ 2400,00",
-    texto: "  Preciso fazer um código em python para um bot do telegram. O bot será para solicitação de pagamento.",
-    skills: ["PYTHON"]
-  },
-  {
-    titulo: "Caixa Rápido",
-    preco: "R$ 1200,00",
-    texto: " Preciso fazer um software que permita ao usuário fazer o upload de seu extrato bancário em formato( ofx). Dentro do software o mesmo poderá categorizar todas as suas receitas e despesas, tendo categorias sugeridas pelo software e permitindo também personalizações. Após o lançamento de vários extratos o software irá entender que são lançamentos parecidos e fará a categorização de maneira automática, cabendo ao usuário somente categorizar as receitas e despesas que não se repetem. Após a categorização o software irá emitir gráficos e relatórios baseados na categorização das contas.",
-    skills: ["PYTHON"]
-  },
-  ])
+  const [produtos, setProdutos] = useState<any[]>([]);
 
   const [skillDigitada, setSkillDigitada] = useState<string>("")
 
   const [listaProdutosFiltrados, setListaProdutosFiltrados] = useState<any[]>(produtos)
 
+    useEffect(() => {
+    document.title = "Lista de Servicos - VSConnect"
+
+    listarServicos()
+    }, [])
+
   function buscarPorSkill(event: any) {
     event.preventDefault()
 
-    const produtosFiltrados = produtos.filter((produto: any) => produto.skills.includes(skillDigitada.toLocaleUpperCase()))
+    const produtosFiltrados = produtos.filter((produto: any) => produto.techs.includes(skillDigitada.toLocaleUpperCase()))
 
     if (produtosFiltrados.length === 0) {
       alert("Nenhum produto foi encontrado com essa skill")
@@ -68,11 +57,20 @@ export default function ListaServicos() {
 
   function retornoProdutosGeral(event: any) {
     if (event.target.value === "") {
-      setListaProdutosFiltrados(produtos)
+      listarServicos()
     }
 
     setSkillDigitada(event.target.value)
   }
+
+  function listarServicos(){
+    //pega os users da api, e então, quando terminar (then), mostre no console.log
+    api.get("servicos").then((response: any) => {
+      console.log(response.data)
+      setProdutos(response.data)
+    })
+  }
+  
   return (
     <>
 
@@ -97,14 +95,13 @@ export default function ListaServicos() {
             </form>
             <div className="wrapper_lista">
               <ul>
-             
-                {listaProdutosFiltrados.map((produto: any, index: number) => {
-                  return <li>
+                {produtos.map((produto: any, index: number) => {
+                  return <li key={index}>
                     <CardServicos
-                      titulo={produto.titulo}
-                      preco={produto.preco}
-                      texto={produto.texto}
-                      techs={produto.skills}
+                      titulo={produto.nome}
+                      preco={produto.valor}
+                      texto={produto.descricao}
+                      techs={produto.techs}
 
                     />
                   </li>

@@ -19,7 +19,7 @@ export default function CardServicos(props: any) {
         //      }
         //     </div>
         //   </div>
-        <li>
+        
             <div className="servico">
                 <div className="topo_servico">
                     <h3>
@@ -38,6 +38,6 @@ export default function CardServicos(props: any) {
                     }
                 </div>
             </div>
-        </li>
+        
     )
 }
