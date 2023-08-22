@@ -98,11 +98,11 @@ export default function ListaServicos() {
                 {produtos.map((produto: any, index: number) => {
                   return <li key={index}>
                     <CardServicos
+                      id ={produto.id}
                       titulo={produto.nome}
                       preco={produto.valor}
                       texto={produto.descricao}
                       techs={produto.techs}
-
                     />
                   </li>
                 }

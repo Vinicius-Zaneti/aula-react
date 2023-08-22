@@ -1,5 +1,5 @@
 import "./style.css"
-
+import { Link } from "react-router-dom"
 export default function CardServicos(props: any) {
 
     return (
@@ -23,7 +23,8 @@ export default function CardServicos(props: any) {
             <div className="servico">
                 <div className="topo_servico">
                     <h3>
-                       {props.titulo}
+                    <Link to={"/servicos/" + props.id}>{props.nome}</Link>
+                    {/* <Link to={"/perfil/" +  props.id}>{ props.nome}</Link> */}
                     </h3>
                     <span>{props.preco}</span>
                 </div>

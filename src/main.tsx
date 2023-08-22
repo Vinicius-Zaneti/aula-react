@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import ListaDevs from './pages/ListaDevs'
 import Servicos from './pages/ListaServicos'
 import PerfilUsuario from './pages/PerfilUsuario'
+import VisualizarServico from './pages/VisualizarServico'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Route path = 'listaservicos' element = {<Servicos />}/>
       <Route path = 'listadevs'  element = {<ListaDevs />}/>
       <Route path = 'perfil/:idUsuario' element = {<PerfilUsuario />}/>
+      <Route path = 'servicos/:idServicos' element = {<VisualizarServico />}/>
     </Routes>
     <Footer />
     </BrowserRouter>
