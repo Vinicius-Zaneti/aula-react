@@ -1,7 +1,13 @@
 import "./style.css"
 import { Link } from "react-router-dom"
 export default function CardServicos(props: any) {
-
+    function parseListaTechs(){
+        if(typeof props.techs === "string"){
+          return JSON.parse(props.techs)
+        } else{
+          return props.techs
+        }
+      }
     return (
         //     <div className="dev">
         //     <div className="grupo_contato">
@@ -22,10 +28,10 @@ export default function CardServicos(props: any) {
         
             <div className="servico">
                 <div className="topo_servico">
-                    <h3>
-                    <Link to={"/servicos/" + props.id}>{props.nome}</Link>
+                    
+                    <Link to={"/servicos/" + props.id}>{props.titulo}</Link>
                     {/* <Link to={"/perfil/" +  props.id}>{ props.nome}</Link> */}
-                    </h3>
+                   
                     <span>{props.preco}</span>
                 </div>
                 <p>
@@ -33,7 +39,7 @@ export default function CardServicos(props: any) {
                 </p>
                 <div className="techs">
                     {
-                        props.techs.map((tech: string, index: number) => {
+                        parseListaTechs().map((tech: string, index: number) => {
                             return <span key={index}>{tech}</span>
                         })
                     }
