@@ -1,6 +1,7 @@
 import "./style.css"
 import { Link } from "react-router-dom"
 export default function CardServicos(props: any) {
+    
     function parseListaTechs(){
         if(typeof props.techs === "string"){
           return JSON.parse(props.techs)
